@@ -1,0 +1,31 @@
+{% extends 'main/header.html' %}
+{% load crispy_forms_tags%}
+
+
+{% block content %}
+<div class="tab-pane" id="edit">
+    <form method="Post" enctype="multipart/form-data">
+   {% csrf_token %}
+   {{ update_form|crispy }}
+   {{ profile_form|crispy }}
+     
+            <label class="col-lg-3 col-form-label form-control-label"></label>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-light btn-round px-5"><i class="icon-lock"></i>
+                        Submit
+                   </button>
+                    
+                        <a href="{% url 'user-profile' user.id %}">
+                         Cancel
+                        </a>
+                   
+                   
+                  </div>
+            
+      
+    </form>
+
+</div>
+  
+{% endblock content %}

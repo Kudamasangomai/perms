@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'main',
     'users',
     'crispy_forms',
-    'mathfilters'
+    'mathfilters',
+    'farmers'
     
     
 ]

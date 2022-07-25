@@ -1,6 +1,8 @@
+from dataclasses import fields
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from farmers.models import farmer
 from users.models import profile
 
 
@@ -39,3 +41,9 @@ class adminprofileupdateform(forms.ModelForm):
      class Meta:
             model = profile
             fields = '__all__'
+
+class RegisterFarmerForm(forms.ModelForm):
+    class Meta:
+        model = farmer
+        fields ='__all__'
+        exclude = ['fuser','date_created']

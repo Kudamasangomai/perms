@@ -1,0 +1,27 @@
+{% extends 'main/header.html' %}
+{% load crispy_forms_tags %}
+
+
+
+{% block content %}
+<div class="col-lg-6">
+  <hr/>
+<h3>Add Documents</h3>
+{% include 'main/messages.html' %}
+<form method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+  {{ documentsform|crispy }}
+  {% if documentsavail %}
+  <h6 class="text">Your documents are already upload if you want to change visit your profile link</h6>
+  {% else %}
+  <button type="submit" class="btn btn-info">Submit</button>
+  {% endif %}
+</form>
+
+
+
+
+
+  
+</div>
+{% endblock content %}

@@ -24,6 +24,13 @@ class farmer(models.Model):
     def __str__(self):
         return self.farm_name
 
-# class documents(models.Model):
-#     fuserd = models.OneToOneField(User,on_delete = models.CASCADE)
+class documents(models.Model):
+    fuserd = models.OneToOneField(User,on_delete = models.CASCADE)
+    coi = models.FileField(upload_to='documents',default='N/A')
+    cr = models.FileField(upload_to='documents',default='N/A')
+    tax_clearence = models.FileField(upload_to='documents',default='N/A')
+
+
+    def __str__(self):
+        return f'{self.fuserd.username} Documents '
     

@@ -1,4 +1,5 @@
 {% extends "main/header.html" %}
+{% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
 
@@ -17,6 +18,7 @@
                 <h5 class="card-title">{{ user.first_name|capfirst  }} {{ user.last_name|capfirst  }}</h5>
                 <p class="card-text">.....</p>
                 <h5 class="card-title">{{ user.profile.user_phone}}</h5>
+            
             </div>
 
             <div class="card-body border-top border-light">
@@ -47,6 +49,10 @@
                 </li>
                 <li class="nav-item">
                     <a href="javascript:void();" data-target="#messages" data-toggle="pill" class="nav-link"><i class="icon-envelope-open"></i> <span class="hidden-xs">Messages</span></a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="javascript:void();" data-target="#documents" data-toggle="pill" class="nav-link"><i class="icon-envelope-open"></i> <span class="hidden-xs">Documents</span></a>
                 </li>
                 
             </ul>
@@ -84,15 +90,7 @@
                     <!--/row-->
                 </div>
                 <div class="tab-pane" id="messages">
-                    <div class="alert alert-info alert-dismissible" role="alert">
-				   <button type="button" class="close" data-dismiss="alert">&times;</button>
-				    <div class="alert-icon">
-					 <i class="icon-info"></i>
-				    </div>
-				    <div class="alert-message">
-				      <span><strong>Info!</strong> Lorem Ipsum is simply dummy text.</span>
-				    </div>
-                  </div>
+                    
                   <div class="table-responsive">
                     <table class="table table-hover table-striped">
                         <tbody>                                    
@@ -101,30 +99,56 @@
                                    <span class="float-right font-weight-bold">3 hrs ago</span> Here is your a link to the latest summary report from the..
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-                                   <span class="float-right font-weight-bold">Yesterday</span> There has been a request on your account since that was..
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                   <span class="float-right font-weight-bold">9/10</span> Porttitor vitae ultrices quis, dapibus id dolor. Morbi venenatis lacinia rhoncus. 
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                   <span class="float-right font-weight-bold">9/4</span> Vestibulum tincidunt ullamcorper eros eget luctus. 
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                   <span class="float-right font-weight-bold">9/4</span> Maxamillion ais the fix for tibulum tincidunt ullamcorper eros. 
-                                </td>
-                            </tr>
+                          
+                         
+                         
+                           
                         </tbody> 
                     </table>
                   </div>
                 </div>
+                <div class="tab-pane" id="documents">
+                    
+                    <div class="table-responsive">
+                      <table class="table table-hover table-striped">
+                          <tbody>                                    
+                            <tr>
+                                <td>Certificate of </td>
+                                <td>
+                                    {{ object.documents.coi}}
+                                    <a href="{{ object.documents.coi.url }}" download  class="btn btn-dark float-right">
+                                    Download
+                                    </a>
+                                </td>
+                              </tr>
+                              <tr>
+                              
+                                <td>CR14</td>
+                                <td> 
+                                     {{ object.documents.cr }}
+                                    <a href="{{ object.documents.cr.url }}" download  class="btn btn-dark float-right">Download</a>
+                                     
+                                    </td>
+
+                              </tr>
+                              <tr>
+                                <td>Tax Clearence</td><td>    {{ object.documents.tax_clearence }}
+                                    <a href="{{ object.documents.tax_clearence.url }}" download  class="btn btn-dark float-right">Download</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td</td><td>  
+                           <a href="{% url 'edit-documents' object.documents.fuserd.id %}">pppp</a>
+                                </td>
+                              </tr>
+                            
+                      
+                           
+                             
+                          </tbody> 
+                      </table>
+                    </div>
+                  </div>
                 
             </div>
         </div>

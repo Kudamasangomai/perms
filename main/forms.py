@@ -2,7 +2,7 @@ from dataclasses import fields
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from farmers.models import farmer
+from farmers.models import *
 from users.models import profile
 
 
@@ -47,3 +47,16 @@ class RegisterFarmerForm(forms.ModelForm):
         model = farmer
         fields ='__all__'
         exclude = ['fuser','date_created']
+
+class DocumentForm(forms.ModelForm):
+    coi = forms.FileField(
+		label="Certificate of Incoperation",
+        )
+    cr = forms.FileField(
+		label="CR14",
+        )
+   
+    class Meta:
+        model = documents
+        fields = '__all__'
+        exclude =['fuserd']

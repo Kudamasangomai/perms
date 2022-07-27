@@ -1,6 +1,6 @@
 from multiprocessing import context
 from urllib import request
-from django.views.generic import ListView
+from django.views.generic import ListView,UpdateView
 from django.shortcuts import get_object_or_404, render,redirect
 from django.contrib import messages
 from main.forms import *
@@ -58,6 +58,26 @@ def add_documents(request):
     return render(request,'farmers/add_documents.html',data)
 
 
+def edit_documents(request,**kwargs):
+
+    profile = get_object_or_404(User, id=request.user.id)
+    if request.method == 'POST':
+        documentsform = DocumentForm(request.POST,request.FILES, instance = request.user.documents)
+        if documentsform.is_valid():
+           
+            documentsform.save()
+            #messages.success(request, f'Documents successfully added')
+            return redirect('farms-list',profile.id)
+    else:
+        documentsform = DocumentForm( instance = request.user.documents)
+        data={
+
+              'documentsform' : documentsform
+            
+        
+        }
+      
+    return render(request,'farmers/edit_documents.html',data)
 
 
 

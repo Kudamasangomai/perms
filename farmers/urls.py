@@ -4,7 +4,8 @@ from django_downloadview import ObjectDownloadView
 from . import views
 from .views import (
 
-	FarmlistView
+	FarmlistView,
+    
 
 
 
@@ -19,6 +20,7 @@ urlpatterns = [
    path('register_farmer/',views.register_farmer, name ='register-farmer'),
    path('farms/<int:pk>',FarmlistView.as_view(),name="farms-list"),
    path('documents/',views.add_documents,name="add-documents"),
+   path('edit_documents/<fuserd_id>',views.edit_documents,name="edit-documents"),
    path('download/', download, name="default"),
 
 

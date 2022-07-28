@@ -2,15 +2,60 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="col-lg-6">
-<form action="" method="POST">
-{% csrf_token %}
-{{ form|crispy }}
 
+<h4>Permit Details</h4>
+
+{{ form.errors }}
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="row">
+    <div class="col-lg-6">
+        {{ form.permit_type|as_crispy_field }}
+
+    </div>
+    <div class="col-lg-6">
+
+{{ form.product_name|as_crispy_field }}
+
+
+</div>
+
+<div class="col-lg-6">
+    {{ form.port_of_entry_exit|as_crispy_field }}
+
+</div>
+<div class="col-lg-6">
+
+{{ form.source|as_crispy_field }}
+
+
+</div>
+
+<div class="col-lg-6">
+    {{ form.destination|as_crispy_field }}
+
+</div>
+<div class="col-lg-6">
+
+{{ form.source|as_crispy_field }}
+Purpose
+
+</div>
+
+<div class="col-lg-6">
+    {{ form.Purpose|as_crispy_field }}
+
+</div>
+<div class="col-lg-6">
+
+
+
+
+</div>
 <button type="submit" class="btn btn-info">Submit</button>
 </form>
 </div>
 {% endblock content %}
 
 
-{{ form.permit_type|as_crispy_field }}
+

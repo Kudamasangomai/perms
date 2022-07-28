@@ -28,3 +28,7 @@ class ApplyPermitView(LoginRequiredMixin, CreateView):
     form_class = PermitApplicationForm
     template_name = 'applications/application-form.html'
     success_url = reverse_lazy('applications')
+
+    def form_valid(self,form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)

@@ -66,4 +66,9 @@ class PermitApplicationForm(forms.ModelForm):
     class Meta:
         model = application
         fields ='__all__'
-        
+        exclude =['user','status','date_created','Approving_officer','StatusReason','permit_number','date_approved',]
+
+
+
+
+

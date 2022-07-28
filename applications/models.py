@@ -48,11 +48,11 @@ class application(models.Model):
     destination = models.CharField(max_length=50)
     Purpose = models.CharField(max_length=20,choices=purporsechoices)
     date_created = models.DateTimeField(default=datetime.today) 
-    Approving_officer = models.ForeignKey(User,default=0,on_delete=models.CASCADE, db_constraint=False,related_name='Approving_officer')
+    Approving_officer = models.ForeignKey(User,default=0,on_delete=models.CASCADE, db_constraint=False,related_name='Approving_officer',blank=True,null=True)
     date_approved = models.DateTimeField(default=datetime.today) 
-    StatusReason = models.CharField(max_length=100,default='waitingstatus')
+    StatusReason = models.CharField(max_length=100,default='waiting')
 
 
     def __str__(self):
-        return self.permit_number
+        return self.user.last_name
     

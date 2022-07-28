@@ -27,6 +27,7 @@ urlpatterns = [
     path('',include('users.urls')),
     path('',include('main.urls')), 
     path('farmers/',include('farmers.urls')), 
+    path('applications/',include('applications.urls')), 
  
 ]
 

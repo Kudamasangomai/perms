@@ -1,0 +1,16 @@
+{% extends 'main/header.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="col-lg-6">
+<form action="" method="POST">
+{% csrf_token %}
+{{ form|crispy }}
+
+<button type="submit" class="btn btn-info">Submit</button>
+</form>
+</div>
+{% endblock content %}
+
+
+{{ form.permit_type|as_crispy_field }}

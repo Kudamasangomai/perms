@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 
 def randpermitno():
-    return str(1001,999999)
+    return str(random.randint(1001,999999))
 
 
 # Create your models here.
@@ -39,7 +39,7 @@ class application(models.Model):
         
     )
     user = models.ForeignKey(User,on_delete=models.CASCADE)
-    permit_number = models.IntegerField(default=randpermitno,unique=True)
+    permit_number = models.CharField(max_length=20,default=randpermitno,unique=True)
     permit_type = models.CharField(max_length=50,choices = permit_choices)  
     product_name = models.CharField(max_length=50)
     port_of_entry_exit =models.CharField(max_length=50,choices=portOfEntryExitChoices)
@@ -51,4 +51,8 @@ class application(models.Model):
     Approving_officer = models.ForeignKey(User,default=0,on_delete=models.CASCADE, db_constraint=False,related_name='Approving_officer')
     date_approved = models.DateTimeField(default=datetime.today) 
     StatusReason = models.CharField(max_length=100,default='waitingstatus')
+
+
+    def __str__(self):
+        return self.permit_number
     

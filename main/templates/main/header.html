@@ -56,8 +56,8 @@
           {% endif %}
     
           <li>
-            <a href="profile.html">
-              <i class="zmdi zmdi-face"></i> <span>Application</span>
+            <a href="{% url 'applications' %}">
+              <i class="zmdi zmdi-face"></i> <span>Applications</span>
             </a>
           </li>
            <li>
@@ -124,7 +124,7 @@
         <li class="nav-item">
        
           <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown" href="#">
-            {{ user.first_name|truncatechars:2|capfirst  }}{{ user.last_name|capfirst  }}    <span class="user-profile"><img src="{{user.profile.image.url}}" class="img-circle" alt="user avatar"></span>
+            {{ user.first_name|capfirst  }} {{ user.last_name|capfirst  }}    <span class="user-profile"><img src="{{user.profile.image.url}}" class="img-circle" alt="user avatar"></span>
            
           </a>
           <ul class="dropdown-menu dropdown-menu-right">

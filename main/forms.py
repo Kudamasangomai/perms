@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from farmers.models import *
+from applications.models import *
 from users.models import profile
 
 
@@ -60,3 +61,9 @@ class DocumentForm(forms.ModelForm):
         model = documents
         fields = '__all__'
         exclude =['fuserd']
+
+class PermitApplicationForm(forms.ModelForm):
+    class Meta:
+        model = application
+        fields ='__all__'
+        

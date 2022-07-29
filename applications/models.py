@@ -1,8 +1,11 @@
+from email import message
 import random
 from ssl import Purpose
 from django.db import models
 from datetime import datetime ,timedelta
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
+from perms.settings import EMAIL_HOST_USER
 
 
 def randpermitno():
@@ -56,3 +59,10 @@ class application(models.Model):
     def __str__(self):
         return self.user.last_name
     
+    def save(self, *args, **kwargs):
+        message = "test"
+        subject = " Perms Department "+ self.permit_number
+        recipient_list = [self.user.email]
+        send_mail(subject, message, EMAIL_HOST_USER,recipient_list,fail_silently=False)
+
+    	

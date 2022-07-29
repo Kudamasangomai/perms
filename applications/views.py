@@ -4,6 +4,7 @@ from requests import request
 from django.urls import reverse_lazy
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import ListView ,UpdateView,DeleteView,FormView,DetailView,CreateView
 
 
@@ -23,10 +24,12 @@ class ApplicationsliStView(LoginRequiredMixin, ListView):
 
 
 
-class ApplyPermitView(LoginRequiredMixin, CreateView):
+class ApplyPermitView(LoginRequiredMixin,SuccessMessageMixin, CreateView):
     model = application
     form_class = PermitApplicationForm
+    success_message = " Permit Succesfully Submitted"
     template_name = 'applications/application-form.html'
+  
     success_url = reverse_lazy('applications')
 
     def form_valid(self,form):

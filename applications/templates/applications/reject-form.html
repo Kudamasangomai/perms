@@ -1,0 +1,30 @@
+{% extends "main/header.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <h4>Confirm You are Reject  {{ application.user.last_name }}'s Application with permit Number 
+            {{ application.permit_number }}    <br>
+            <p>Give a reason below</p>
+            </h4>
+            <br/>
+            <form  method="Post" action="">
+             {% csrf_token %}
+             <input type="text" class="form-control" name="rejectreason" id="input-1" placeholder="Enter Rejection Reason">
+       
+                                  
+           
+        </div>
+       
+       
+    </div>
+</div>
+<button type="submit" class="btn btn-Danger">Reject</button>
+</form>
+
+<button class="btn btn-info"  data-dismiss="modal"><a href="{% url 'applications' %}">Cancel</a></button>
+
+{% endblock content %}

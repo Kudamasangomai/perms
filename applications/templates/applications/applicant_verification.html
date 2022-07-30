@@ -1,0 +1,206 @@
+{% extends "main/header.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+{% include 'main/messages.html' %}
+
+
+      <div class="row mt-3">
+        <div class="col-lg-4">
+           <div class="card profile-card-2">
+            <div class="card-img-block">
+
+            </div>
+            <div class="card-body pt-5">
+                <img src="{{object.user.profile.image.url}}" alt="profile-image" class="profile">
+                <h5 class="card-title">{{ object.user.first_name|capfirst  }} {{ object.user.last_name|capfirst  }}</h5>
+             
+                <h5 class="card-title">Phone : {{ object.user.profile.user_phone}}</h5>
+                <h5 class="card-title">email : {{ object.user.profile.email}}</h5>
+            
+            </div>
+
+            <div class="card-body border-top border-light">
+                <div class="media align-items-center">
+                 
+                    <div class="media-body text-left ml-3">
+                      <div class="progress-wrapper">
+                   
+                        </div>
+                       </div>                   
+                   </div>
+                 </div>
+               
+        </div>
+
+        </div>
+
+        <div class="col-lg-8">
+            <div class="card">
+             <div class="card-body">
+             <ul class="nav nav-tabs nav-tabs-primary top-icon nav-justified">
+                 <li class="nav-item">
+                     <a href="javascript:void();" data-target="#profile" data-toggle="pill" class="nav-link active"><i class="icon-user"></i> <span class="hidden-xs">Profile</span></a>
+                 </li>
+                 <li class="nav-item">
+                     <a href="javascript:void();" data-target="#messages" data-toggle="pill" class="nav-link"><i class="icon-envelope-open"></i> <span class="hidden-xs">Permit Details</span></a>
+                 </li>
+ 
+                 <li class="nav-item">
+                     <a href="javascript:void();" data-target="#documents" data-toggle="pill" class="nav-link"><i class="icon-envelope-open"></i> <span class="hidden-xs">Documents</span></a>
+                 </li>
+                 
+             </ul>
+             <div class="tab-content p-3">
+                 <div class="tab-pane active" id="profile">
+                     <h5 class="mb-3">User Profile</h5>
+                     <div class="row">
+                         <div class="col-md-6">
+                             <h6>About</h6>
+                             <p>
+                                 Web Designer, UI/UX Engineer
+                             </p>
+                             <h6>Hobbies</h6>
+                             <p>
+                                 Indie music, skiing and hiking. I love the great outdoors.
+                             </p>
+                         </div>
+                    
+                         <div class="col-md-12">
+                             <h5 class="mt-2 mb-3"><span class="fa fa-clock-o ion-clock float-right"></span> Recent Activity</h5>
+                              <div class="table-responsive">
+                             <table class="table table-hover table-striped">
+                                 <tbody>                                    
+                                     <tr>
+                                         <td>
+                                             <strong>Abby</strong> joined ACME Project Team in <strong>`Collaboration`</strong>
+                                         </td>
+                                     </tr>
+                                     
+                                 </tbody>
+                             </table>
+                           </div>
+                         </div>
+                     </div>
+                     <!--/row-->
+                 </div>
+                 <div class="tab-pane" id="messages">
+                     
+                   <div class="table-responsive">
+                     <table class="table table-hover table-striped">
+                         <tbody>    
+                            <tr>
+                                <td>Permit Number</td><td> {{ object.permit_number}} </td>
+                             </tr>                                
+                             <tr>
+                                <td>Permit Type</td><td> {{ object.permit_type }} </td>
+                             </tr>
+                             <tr>
+                                <td>Date Submitted</td><td> {{ object.date_created }} </td>
+                             </tr>
+                             <tr>
+                                <td>Product Name</td><td> {{ object.product_name }} </td>
+                             </tr>
+                             
+                             <tr>
+                                <td>Source</td><td> {{ object.source }} </td>
+                             </tr>
+                             <tr>
+                                <td>Destination</td><td> {{ object.destination }} </td>
+                             </tr>
+                             <tr>
+                                <td>Reason</td><td> {{ object.Purpose }} </td>
+                             </tr>
+                             <tr>
+                                <td><button type="submit" class="btn btn-success">Approve</button>
+                                    <button type="submit" class="btn btn-danger">Reject</button>
+                                    <button type="submit" class="btn btn-info">Cancel</button>
+                                </td>
+                             </tr>
+
+                          
+                          
+                            
+                         </tbody> 
+                     </table>
+                   </div>
+                 </div>
+
+              
+                 <div class="tab-pane" id="documents">
+                     
+                     <div class="table-responsive">
+                       <table class="table table-hover table-striped">
+                           <tbody>                                    
+                             <tr>
+                                 <td>Certificate of </td>
+                                 <td>
+                                     {{ object.documents.coi}}
+                                     <a href="{{ object.user.documents.coi.url }}" download  class="btn btn-dark float-right">
+                                     Download
+                                     </a>
+                                 </td>
+                               </tr>
+                               <tr>
+                               
+                                 <td>CR14</td>
+                                 <td> 
+                                      {{ object.documents.cr }}
+                                     <a href="{{ object.documents.cr.url }}" download  class="btn btn-dark float-right">Download</a>
+                                      
+                                     </td>
+ 
+                               </tr>
+                               <tr>
+                                 <td>Tax Clearence</td><td>    {{ object.documents.tax_clearence }}
+                                     <a href="{{ object.documents.tax_clearence.url }}" download  class="btn btn-dark float-right">Download</a>
+                                 </td>
+                               </tr>
+                               <tr>
+                                 <td</td><td>  
+                                     
+                                     {% if userdetails %}
+                                     <a href="{% url 'edit-documents' object.documents.fuserd.id %}">pppp</a>
+                                     {% else %}
+                                     
+                                     {% endif %}
+                                         
+                        
+                                 </td>
+                               </tr>
+                             
+                       
+                            
+                              
+                           </tbody> 
+                       </table>
+                     </div>
+                   </div>
+                 
+             </div>
+         </div>
+       </div>
+       </div>
+        
+    </div>
+
+	<!--start overlay-->
+		  <div class="overlay toggle-menu"></div>
+		<!--end overlay-->
+	
+    </div>
+    <!-- End container-fluid-->
+ 
+   <!--Start Back To Top Button-->
+    <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+    <!--End Back To Top Button-->
+	
+	
+	
+
+   
+
+  
+{% endblock content %}

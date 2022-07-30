@@ -1,0 +1,28 @@
+{% extends "main/header.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <h4>Confirm You are Approving  {{ application.user.last_name }}'s Application with permit Number 
+            {{ application.permit_number }}    
+            </h4>
+            <br/>
+            <form  method="Post" action="">
+             {% csrf_token %}
+       
+                                  
+           
+        </div>
+       
+       
+    </div>
+</div>
+<button type="submit" class="btn btn-success">Assign</button>
+</form>
+
+<button class="btn btn-warning"  data-dismiss="modal"><a href="{% url 'applications' %}">Cancel</a></button>
+
+{% endblock content %}

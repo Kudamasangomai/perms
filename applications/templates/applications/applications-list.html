@@ -91,9 +91,14 @@
                 
                       <td>
                      
-                        
-                             <a href=" url 'user-profile' user.id ">
-                              <i class="zmdi zmdi-face"></i> |
+                          
+                          {% if app.status == 'Approved'  %}
+                            
+                      procceed to payment
+                            
+                        {% else %}
+                             <a href="{% url 'applicant-details' app.id %}">
+                            View |
                             </a>
                              
                              {% if user.is_superuser %}
@@ -101,14 +106,18 @@
                              
                              {% if app.status == "waiting" %}
                              <a  href="{% url 'assign-officer' app.id %}">
-                              <i class="zmdi zmdi-account-circle"></i> |
+                   
+                            Assign |
                             </a>
 
                              {% else %}
                         
                               
-                             <a  href="{% url 'assign-officer' app.id %}">Approve |</a>
-                             <a  href="#">Rejected |</a>
+                             <a  href="{% url 'approve-permit' app.id %}">
+                              Approve |
+                            </a>
+                            <a  href="{% url 'reject-permit' app.id %}">
+                              Rejected |</a>
                              {% endif %}
                              
                              {% else %}
@@ -120,10 +129,17 @@
                              
                            
                             
-                       
-                      
+                            
+                            {% if app.user == user %}
+
                             <a  href=" url 'admin-user-profile-update' user.id ">Update |</a>
                             <a  href="javascript:void();">Delete |</a>
+                              
+                            {% endif %}
+                              
+                            {% endif %}
+                           
+                            
                        
                               
                  

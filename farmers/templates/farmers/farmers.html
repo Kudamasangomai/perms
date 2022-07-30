@@ -13,7 +13,7 @@
 
     
     
-<li>{{ a.last_name }}  </li>
+<li> <a href="{% url 'user-profile' a.id %}">pop</a> {{ a.last_name }}  </li>
 
 
 {% endif %}   

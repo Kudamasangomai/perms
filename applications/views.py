@@ -1,9 +1,10 @@
 from .models import *
-from farmers.models import farm
+from farmers.models import *
 from main.forms import *
 from django.urls import reverse_lazy
 from django.shortcuts import render,redirect
 from django.contrib import messages
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import ListView ,UpdateView,DeleteView,FormView,DetailView,CreateView
@@ -37,6 +38,9 @@ class ApplyPermitView(LoginRequiredMixin,SuccessMessageMixin, CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
+class ApplicantView(DetailView):
+    model = application
+    template_name = 'applications/applicant_verification.html'
 
 
 def assign_officer(request,pk):
@@ -67,3 +71,43 @@ def assign_officer(request,pk):
 
 
 
+def approve_permit(request,pk):
+    app = application.objects.get(id=pk)
+    if request.method == 'POST':
+        
+        app.status = 'Approved'
+        app.StatusReason =  'Approved'
+        app.save()
+        # subject = "New Notification - Perms"     
+        # message = " Your application Has been Approved "
+        # recipient_list = [app.user.email,]
+        # send_mail(subject,message,EMAIL_HOST_USER,recipient_list,fail_silently = False)
+        messages.success(request,f' Application succefully Approved')
+        return redirect('applications')
+    else:
+            context={
+            
+             'application' : application.objects.get(id=pk)
+        }       
+    return render(request,'applications/approval-form.html',context)
+
+
+def reject_permit(request,pk):
+    app = application.objects.get(id=pk)
+    if request.method == 'POST':
+        
+        app.status = 'NotApproved'
+        app.StatusReason =  request.POST.get('rejectreason')
+        app.save()
+        # subject = "New Notification - Perms"     
+        # message = " Your application Has been Approved "
+        # recipient_list = [app.user.email,]
+        # send_mail(subject,message,EMAIL_HOST_USER,recipient_list,fail_silently = False)
+        messages.success(request,f' Application succefully Rejected')
+        return redirect('applications')
+    else:
+            context={
+            
+             'application' : application.objects.get(id=pk)
+        }       
+    return render(request,'applications/reject-form.html',context)

@@ -11,11 +11,12 @@
 <form method="POST" enctype="multipart/form-data">
 {% csrf_token %}
   {{ documentsform|crispy }}
-  {% if documentsavail %}
-  <h6 class="text">Your documents are already upload if you want to change visit your profile link</h6>
+   {% if documentsavail %}
+  <h6 class="text">Your documents are already uploaded if you want to change visit your profile link</h6>
   {% else %}
   <button type="submit" class="btn btn-info">Submit</button>
-  {% endif %}
+  {% endif %} 
+
 </form>
 
 

@@ -4,6 +4,7 @@
 {% block content %}
 
 <h4>Permit Details</h4>
+{% include "main/messages.html" %}
 
 {{ form.errors }}
 <form action="" method="POST">
@@ -37,13 +38,13 @@
 </div>
 <div class="col-lg-6">
 
-{{ form.source|as_crispy_field }}
-Purpose
+    {{ form.Purpose|as_crispy_field }}
+
 
 </div>
 
 <div class="col-lg-6">
-    {{ form.Purpose|as_crispy_field }}
+    
 
 </div>
 <div class="col-lg-6">

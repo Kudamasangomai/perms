@@ -18,19 +18,22 @@
         <div class="card-body">
           <h5 class="card-title">Applications</h5>
 
-      
+
+        
        <div class="card-action">
+        {% if user_has_farm %}
         <div class="dropdown">
         <a href="javascript:void();" class="dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown">
          <i class="icon-options"></i>
         </a>
            <div class="dropdown-menu dropdown-menu-right">
+          
            <a class="dropdown-item" href="{% url 'apply-permit' %}">Apply For Permit</a>
           
      
     
           <a class="dropdown-item" href=" url 'admin-user-profile-update' user.id ">download pdf</a>
-          <a class="dropdown-item" href="javascript:void();">Delete</a>
+         
      
             
 
@@ -38,10 +41,16 @@
      
           </div>
          </div>
+         {% else %}
+        Register you farm here <a href="{% url 'register-farm' %}"></a> to be able to appy for a permit
+       {% endif %}
       </div>
-       <br>
+ 
+     
+       <br><div class="card-body">
           <div class="table-responsive">
-           <table class="table table-striped">
+         <table class="table table-striped">
+      
               <thead>
                 <tr>
               
@@ -67,31 +76,60 @@
                   <td>{{ app.user.firt_name }} {{ app.user.last_name }}</td>
                   <td>{{ app.permit_type }}</td>
                   <td>{{ app.status}}</td>
-                  <td>{{ app.Approving_officer }}</td>
+                  <td>
+                    
+                    {% if app.Approving_officer  %}
+                    {{ app.Approving_officer }}
+                    {% else %}
+                    N/A
+                    {% endif %}
+                      
+                    
+                  </td>
                   <td>{{ app.date_created }}</td>
                
                 
                       <td>
-                        <div class="card-action">
-                          <div class="dropdown">
-                          <a href="javascript:void();" class="dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown">
-                           <i class="icon-options"></i>
-                          </a>
-                             <div class="dropdown-menu dropdown-menu-right">
-                             <a class="dropdown-item" href=" url 'user-profile' user.id ">View</a>
+                     
+                        
+                             <a href=" url 'user-profile' user.id ">
+                              <i class="zmdi zmdi-face"></i> |
+                            </a>
+                             
+                             {% if user.is_superuser %}
+                            
+                             
+                             {% if app.status == "waiting" %}
+                             <a  href="{% url 'assign-officer' app.id %}">
+                              <i class="zmdi zmdi-account-circle"></i> |
+                            </a>
+
+                             {% else %}
+                        
+                              
+                             <a  href="{% url 'assign-officer' app.id %}">Approve |</a>
+                             <a  href="#">Rejected |</a>
+                             {% endif %}
+                             
+                             {% else %}
+                             
+                             {% endif %}
+                             
+                           
+                              
+                             
+                           
                             
                        
                       
-                            <a class="dropdown-item" href=" url 'admin-user-profile-update' user.id ">Update</a>
-                            <a class="dropdown-item" href="javascript:void();">Delete</a>
+                            <a  href=" url 'admin-user-profile-update' user.id ">Update |</a>
+                            <a  href="javascript:void();">Delete |</a>
                        
                               
                  
                           
-                       
-                            </div>
-                           </div>
-                        </div>
+                     
+                        
                       </td>
                     
 
@@ -135,10 +173,14 @@
             </nav>
             
         </div>
+      </div>
         </div>
       </div>
     </div>
     </div>  
   
+    
+ 
+      
 {% endblock content %}
 

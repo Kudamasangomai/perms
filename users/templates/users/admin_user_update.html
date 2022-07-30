@@ -3,6 +3,7 @@
 
 {% block content %}
 
+<div class="col-lg-6">
 <form method="Post" enctype="multipart/form-data">
     {% csrf_token %}
        {{ form|crispy }}
@@ -10,5 +11,5 @@
     
       <button type="submit" class="btn btn-info">Submit</button>
     </form>
-  
+  </div>
 {% endblock content %}

@@ -7,8 +7,8 @@ class profile(models.Model):
     user = models.OneToOneField(User,on_delete = models.CASCADE)
     image =  models.ImageField(default='default.jpg' ,upload_to = 'profile_pics')
     user_phone =  models.IntegerField(default=0)
-    role = models.IntegerField(default=0)
-    nationalid = models.CharField(max_length=20,null=True)
+    role = models.IntegerField(default=1)
+    nationalid = models.CharField(max_length=20,null=True,default='xx-xxxxx-xx')
 
     def __str__(self):
         return self.user.username

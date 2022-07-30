@@ -30,9 +30,16 @@ class UserProfileView(DetailView):
     model = User
     template_name = 'users/user_profile.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(UserProfileView,self).get_context_data(**kwargs)
+       # context['userdetails'] = User.objects.filter(id = self.request.user.id)
+        context['userdetails'] = documents.objects.filter(fuserd =self.request.user)
+        return context
+
 
 def admin_userprofile_update(request,pk):
     userdata = User.objects.get(id=pk)
+   
     if request.method == 'POST':
         form = UserUpdateForm(request.POST ,instance = User.objects.get(id=pk))
         profile_form = adminprofileupdateform(request.POST,request.FILES , instance = profile.objects.get(user= userdata.id))

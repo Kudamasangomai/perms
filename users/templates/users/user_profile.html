@@ -138,7 +138,14 @@
                               </tr>
                               <tr>
                                 <td</td><td>  
-                           <a href="{% url 'edit-documents' object.documents.fuserd.id %}">pppp</a>
+                                    
+                                    {% if userdetails %}
+                                    <a href="{% url 'edit-documents' object.documents.fuserd.id %}">pppp</a>
+                                    {% else %}
+                                    
+                                    {% endif %}
+                                        
+                       
                                 </td>
                               </tr>
                             

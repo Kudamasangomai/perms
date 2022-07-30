@@ -26,35 +26,36 @@
                 </tr>
               </thead>
               <tbody>
-                {% for user in users  %}
+                {% for usero in users  %}
                   
              
                 <tr>
                   <th scope="row">
                     <div class="avatar">
-                        <span class="user-profile"><img src="{{user.profile.image.url}}" class="img-circle" alt="user avatar"></span>
+                        <span class="user-profile"><img src="{{usero.profile.image.url}}" class="img-circle" alt="user avatar"></span>
                 </div>
                   </th>
                  
-                  <td>{{  user.first_name}}</td>
-                  <td>{{  user.last_name}}</td>
-                  <th >{{  user.username}}</th>
-                   <td>{{  user.email}}</td>
-                      <td>{{  user.is_superuser}}</td>
-                      <td>{{  user.is_staff}}</td>
-                      <td>{{  user.profile.role }}</td>
+                  <td>{{  usero.first_name}}</td>
+                  <td>{{  usero.last_name}}</td>
+                  <th >{{  usero.username}}</th>
+                   <td>{{  usero.email}}</td>
+                      <td>{{  usero.is_superuser}}</td>
+                      <td>{{  usero.is_staff}}</td>
+                      <td>{{  usero.profile.role }}</td>
                       <td>
                         <div class="card-action">
                           <div class="dropdown">
                           <a href="javascript:void();" class="dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown">
                            <i class="icon-options"></i>
                           </a>
+                          {% if user.is_superuser %}
                              <div class="dropdown-menu dropdown-menu-right">
-                             <a class="dropdown-item" href="{% url 'user-profile' user.id %}">View</a>
+                             <a class="dropdown-item" href="{% url 'user-profile' usero.id %}">View</a>
                             
-                       
-                             {% if user.is_superuser %}
-                            <a class="dropdown-item" href="{% url 'admin-user-profile-update' user.id %}">Update</a>
+                           
+                         
+                            <a class="dropdown-item" href="{% url 'admin-user-profile-update' usero.id %}">Update</a>
                             <a class="dropdown-item" href="javascript:void();">Delete</a>
                             {% endif %}
                               

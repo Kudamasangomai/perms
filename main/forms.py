@@ -29,7 +29,7 @@ class UserUpdateForm(forms.ModelForm):
 		}))
 	class Meta:
 		model = User
-		fields = ['email','username','first_name','last_name']
+		fields = ['email','username','first_name','last_name','is_superuser','is_staff']
 
 class profileupdateform(forms.ModelForm):
     class Meta:
@@ -43,9 +43,9 @@ class adminprofileupdateform(forms.ModelForm):
             model = profile
             fields = '__all__'
 
-class RegisterFarmerForm(forms.ModelForm):
+class RegisterFarmForm(forms.ModelForm):
     class Meta:
-        model = farmer
+        model = farm
         fields ='__all__'
         exclude = ['fuser','date_created']
 
@@ -67,8 +67,4 @@ class PermitApplicationForm(forms.ModelForm):
         model = application
         fields ='__all__'
         exclude =['user','status','date_created','Approving_officer','StatusReason','permit_number','date_approved',]
-
-
-
-
 

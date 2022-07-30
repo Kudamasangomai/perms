@@ -1,0 +1,26 @@
+{% extends 'main/header.html' %}
+
+{% block content %}
+
+
+
+{% for a in farmers  %}
+
+
+
+{% if a.profile.role == 1 %}
+    
+
+    
+    
+<li>{{ a.last_name }}  </li>
+
+
+{% endif %}   
+{% endfor %}
+
+
+
+  
+{% endblock content %}
+

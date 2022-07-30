@@ -1,9 +1,17 @@
 {% if messages %}
 {% for message in messages%}
 
-<div class="alert alert-{{message.tags}}" role="alert">
+<div class="row mt-3">
+  <div class="col-lg-6">
+    <div class="alert alert-{{message.tags}}" role="alert">
+      {{ message }}
+    </div>
+</div>
+</div>
 
-  {{ message }}
+
 </div>
 {% endfor %}
 {% endif %}
+
+

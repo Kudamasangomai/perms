@@ -94,7 +94,7 @@
                           
                           {% if app.status == 'Approved'  %}
                             
-                      procceed to payment
+                     <a href="{% url 'payment' app.id %}">Procced to payment</a>
                             
                         {% else %}
                              <a href="{% url 'applicant-details' app.id %}">

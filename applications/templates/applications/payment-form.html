@@ -1,0 +1,37 @@
+{% extends "main/header.html" %}
+{% load crispy_forms_tags %}
+
+
+
+
+{% block content %}
+
+<h3>Pay here</h3>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <h4>  {{ applicationdetails.permit_number }} 
+           <br>
+            <p>Enter Your Payment number</p>
+            </h4>
+            <br/>
+            <form  method="Post" action="">
+             {% csrf_token %}
+             <input type="text" class="form-control" name="payingnumber" id="input-1" placeholder="Enter Phone number">
+       
+                                  
+           
+        </div>
+       
+       
+    </div>
+</div>
+<button type="submit" class="btn btn-success">Pay</button>
+</form>
+
+<button class="btn btn-info"  data-dismiss="modal"><a href="{% url 'applications' %}">Cancel</a></button>
+    
+{% endblock content %}
+    

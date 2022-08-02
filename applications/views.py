@@ -42,8 +42,13 @@ class ApplicantView(DetailView):
     model = application
     template_name = 'applications/applicant_verification.html'
 
+    # def get_context_data(self,**kwargs):
+    #     context = super(ApplicantView,self).get_context_data(**kwargs)
+    #     #context['userdocs'] = documents.objects.filter(fuserd_id = self.kwargs['pk'])
+
 
 def assign_officer(request,pk):
+    
 
     app = application.objects.get(id=pk)
     appwoner = User.objects.get(id=app.user_id)
@@ -103,7 +108,7 @@ def reject_permit(request,pk):
         # message = " Your application Has been Approved "
         # recipient_list = [app.user.email,]
         # send_mail(subject,message,EMAIL_HOST_USER,recipient_list,fail_silently = False)
-        messages.success(request,f' Application succefully Rejected')
+        messages.warning(request,f' Application succefully Rejected')
         return redirect('applications')
     else:
             context={
@@ -111,3 +116,20 @@ def reject_permit(request,pk):
              'application' : application.objects.get(id=pk)
         }       
     return render(request,'applications/reject-form.html',context)
+
+
+
+def payment(request,pk):
+    app = application.objects.get(id=pk)
+    if request.method == 'POST':
+        
+       
+   
+        messages.warning(request,f' Application succefully Rejected')
+        return redirect('applications')
+    else:
+            context={
+            
+             'applicationdetails' : application.objects.get(id=pk)
+        }       
+    return render(request,'applications/payment-form.html',context)

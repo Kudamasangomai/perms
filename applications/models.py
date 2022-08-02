@@ -59,15 +59,15 @@ class application(models.Model):
     def __str__(self):
         return self.user.last_name
     
-    def save(self, *args, **kwargs):
-        if self.id:
-            print('updating')
-        else:
-            message = "You have applied for a " +self.permit_type + " licence. Track it with this number "+ self.permit_number
-            subject = "Perms - Perms Department "
-            recipient_list = [self.user.email]
-            send_mail(subject, message, EMAIL_HOST_USER,recipient_list,fail_silently=False)
-        super(application, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     if self.id:
+    #         print('updating')
+    #     else:
+    #         message = "You have applied for a " +self.permit_type + " licence. Track it with this number "+ self.permit_number
+    #         subject = "Perms - Perms Department "
+    #         recipient_list = [self.user.email]
+    #         send_mail(subject, message, EMAIL_HOST_USER,recipient_list,fail_silently=False)
+    #     super(application, self).save(*args, **kwargs)
 
 
 

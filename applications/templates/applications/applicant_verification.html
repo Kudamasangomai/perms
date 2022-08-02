@@ -19,6 +19,12 @@
              
                 <h5 class="card-title">Phone : {{ object.user.profile.user_phone}}</h5>
                 <h5 class="card-title">email : {{ object.user.profile.email}}</h5>
+             
+
+             
+                <h5>
+
+                </h5>
             
             </div>
 
@@ -73,11 +79,11 @@
                               <div class="table-responsive">
                              <table class="table table-hover table-striped">
                                  <tbody>                                    
-                                     <tr>
+                                     <!-- <tr>
                                          <td>
                                              <strong>Abby</strong> joined ACME Project Team in <strong>`Collaboration`</strong>
                                          </td>
-                                     </tr>
+                                     </tr> -->
                                      
                                  </tbody>
                              </table>
@@ -111,16 +117,47 @@
                                 <td>Destination</td><td> {{ object.destination }} </td>
                              </tr>
                              <tr>
-                                <td>Reason</td><td> {{ object.Purpose }} </td>
+                                <td>Purpose product</td><td> {{ object.Purpose }} </td>
                              </tr>
                              <tr>
-                                <td><button type="submit" class="btn btn-success">Approve</button>
-                                    <button type="submit" class="btn btn-danger">Reject</button>
-                                    <button type="submit" class="btn btn-info">Cancel</button>
+                                
+                                {% if object.StatusReason == 'Approved' %}
+                                <td>Aprroved</td><td> Approved </td>
+                                {% else %}
+
+                                <td>Permit Rejected </td><td> {{ object.StatusReason }} </td>
+
+                                {% endif %}
+                                    
+                             
+                             </tr>
+                             
+                             {% if user.profile.role < 4 %}
+
+                             {% else %}
+                             <tr>
+                                <td>
+                                    Action
                                 </td>
+                                <td><button type="submit" class="btn btn-success">
+                                    <a  href="{% url 'approve-permit' object.id %}">
+                                        Approve
+                                    </a>
+                                 
+                                </button>
+                                    <button type="submit" class="btn btn-danger">
+                                        <a  href="{% url 'reject-permit' object.id %}">
+                                        Reject
+                                        </a>
+                                    </button>
+                                    <button type="submit" class="btn btn-info">Cancel</button></td>
                              </tr>
 
                           
+                                
+                             {% endif %}
+                                
+                           
                           
                             
                          </tbody> 
@@ -135,9 +172,10 @@
                        <table class="table table-hover table-striped">
                            <tbody>                                    
                              <tr>
+                             
                                  <td>Certificate of </td>
                                  <td>
-                                     {{ object.documents.coi}}
+                                     {{ object.user.documents.coi}}
                                      <a href="{{ object.user.documents.coi.url }}" download  class="btn btn-dark float-right">
                                      Download
                                      </a>
@@ -147,15 +185,15 @@
                                
                                  <td>CR14</td>
                                  <td> 
-                                      {{ object.documents.cr }}
-                                     <a href="{{ object.documents.cr.url }}" download  class="btn btn-dark float-right">Download</a>
+                                      {{ object.user.documents.cr }}
+                                     <a href="{{ object.user.documents.cr.url }}" download  class="btn btn-dark float-right">Download</a>
                                       
                                      </td>
  
                                </tr>
                                <tr>
-                                 <td>Tax Clearence</td><td>    {{ object.documents.tax_clearence }}
-                                     <a href="{{ object.documents.tax_clearence.url }}" download  class="btn btn-dark float-right">Download</a>
+                                 <td>Tax Clearence</td><td>    {{ object.user.documents.tax_clearence }}
+                                     <a href="{{ object.user.documents.tax_clearence.url }}" download  class="btn btn-dark float-right">Download</a>
                                  </td>
                                </tr>
                                <tr>

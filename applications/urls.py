@@ -14,7 +14,8 @@ urlpatterns = [
    path('assign_officer/<int:pk>',views.assign_officer,name="assign-officer"),
    path('approve_permit/<int:pk>',views.approve_permit,name="approve-permit"),
    path('reject_permit/<int:pk>',views.reject_permit,name="reject-permit"),
-   path('applicant_details/<int:pk>',ApplicantView.as_view(),name="applicant-details")
+   path('applicant_details/<int:pk>',ApplicantView.as_view(),name="applicant-details"),
+   path('payment/<int:pk>',views.payment,name="payment")
 
 
   

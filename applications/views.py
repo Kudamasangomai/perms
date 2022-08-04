@@ -147,11 +147,12 @@ def payment(request,pk):
 
 
 @login_required
-def process_payment(request):
+def process_payment(request,pk):
     #app = application.objects.get(id=pk)
     timeout = 10
     retries = 0
     sleep_time = 10
+    permit_app = application.objects.get(id=pk)
 
     if request.method == 'POST':
         usern = request.POST.get('ecocashnumber')
@@ -182,21 +183,25 @@ def process_payment(request):
             time.sleep(sleep_time)
             status = paynow.check_transaction_status(poll_url)
 
-            if status.paid :
-                #print('Yay! Transaction was paid for. Update transaction')
-                #redirect_to = request.POST.get('next', request.user.id)
-                messages.success(request, f'Transaction Was Succesfull')
-                #return redirect('submit-pay', redirect_to)
+            if status.paid :      
+                a =status.paid
+                permit_app.permit_paid = a
+                permit_app.save()
+                print(a)  
+                                                   
+                messages.success(request, f'Transaction Was Succesfull')                
                 context = {
-                    'paid' : status.paid
+                    'paid' : status.paid,
+                    'applications'  :application.objects.filter(user = request.user)
                 }
                 return render(request,'applications/applications-list.html',context)
             else:
                 print(status.paid)
-                #redirect_to = request.POST.get('next', request.user.id)
+                
+                context ={
+                  'applications'  :application.objects.filter(user = request.user)
+                } 
                 messages.warning(request, f'Transaction Fail please try again')
-                #return redirect('payment', redirect_to)
                 return render(request,'applications/applications-list.html',context)
                   
         retries = retries + 1
-  

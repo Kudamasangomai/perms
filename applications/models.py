@@ -55,6 +55,7 @@ class application(models.Model):
     Approving_officer = models.ForeignKey(User,default=0,on_delete=models.CASCADE, db_constraint=False,related_name='Approving_officer',blank=True,null=True)
     date_approved = models.DateTimeField(default=datetime.today) 
     StatusReason = models.CharField(max_length=100,default='waiting')
+    permit_paid = models.CharField(default='false',max_length=10)
 
 
     def __str__(self):

@@ -17,7 +17,7 @@ urlpatterns = [
    path('applicant_details/<int:pk>',ApplicantView.as_view(),name="applicant-details"),
    path('application_aupdate/<int:pk>',ApplicationUpdateView.as_view(),name='application-update'),
    path('payment/<int:pk>',views.payment,name="payment"),
-   path('process_payment/',views.process_payment,name='process-payment'),
+   path('process_payment/<int:pk>',views.process_payment,name='process-payment'),
 
 
   

@@ -57,6 +57,7 @@
                   <th scope="col">Names </th>               
                   <th scope="col">permit_type</th>
                   <th scope="col">Status</th>
+                  <th scope="col">Paid</th>
                   <th scope="col">Officer</th>
                   <th scope="col">date Submmited</th>
             
@@ -75,6 +76,7 @@
                   <td>{{ app.user.firt_name }} {{ app.user.last_name }}</td>
                   <td>{{ app.permit_type }}</td>
                   <td>{{ app.status}}</td>
+                  <td>{{ app.permit_paid}}</td>
                   <td>
                     
                     {% if app.Approving_officer  %}

@@ -12,7 +12,11 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import ListView ,UpdateView,DeleteView,DetailView,CreateView
-
+import io
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import inch
+from reportlab.lib.pagesizes import letter
+from django.http import FileResponse
 
 #list all application of the Logged in User but admin user an view All
 class ApplicationsliStView(LoginRequiredMixin, ListView):
@@ -205,3 +209,28 @@ def process_payment(request,pk):
                 return render(request,'applications/applications-list.html',context)
                   
         retries = retries + 1
+
+
+def export_pdf(request,pk):
+    buf = io.BytesIO()
+    c = canvas.Canvas(buf,pagesize=letter,bottomup=0)
+    c.drawString(100, 100, "Let's generate this pdf file.")
+    textob = c.beginText()
+	
+    textob.setFont("Helvetica",14)
+    objbooks = application.objects.filter(id=pk)
+    row = []
+    for objb in objbooks:
+        row.append(objb.permit_number)
+        row.append(objb.product_name)
+        row.append(objb.permit_number)
+
+    for line in row:
+        textob.textLine(line)
+    c.drawText(textob)
+    c.showPage()
+    c.save()
+    buf.seek(0)
+    return FileResponse(buf, as_attachment=True, filename='books.pdf')
+
+

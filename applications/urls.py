@@ -19,7 +19,8 @@ urlpatterns = [
    path('payment/<int:pk>',views.payment,name="payment"),
    path('process_payment/<int:pk>',views.process_payment,name='process-payment'),
 
-
+   # path('export_csv/',views.export_csv,name="export-csv"),
+   path('export_pdf/<int:pk>',views.export_pdf,name="export-pdf"),
   
  
   

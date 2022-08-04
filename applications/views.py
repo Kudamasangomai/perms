@@ -74,7 +74,7 @@ def assign_officer(request,pk):
             # message = " Your application in Now being proccesed "
             # recipient_list = [appwoner.email,]
             # send_mail(subject,message,EMAIL_HOST_USER,recipient_list,fail_silently = False)
-            # messages.success(request,f' Application succefully Assigned')
+            messages.success(request,f' Application succefully Assigned')
             return redirect('applications')
         
         else:

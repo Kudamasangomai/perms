@@ -6,10 +6,12 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12 col-sm-6">
-            <h4>Confirm You are Reject  {{ application.user.last_name }}'s Application with permit Number 
-            {{ application.permit_number }}    <br>
-            <p>Give a reason below</p>
-            </h4>
+            <br>
+            <h4>Confirm You are Rejecting  {{ application.user.last_name }}'s Application with permit Number 
+            {{ application.permit_number }} </h4>
+            <br>
+            <p>NB - Give a reason below</p>
+       
             <br/>
             <form  method="Post" action="">
              {% csrf_token %}

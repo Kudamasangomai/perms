@@ -1,26 +1,139 @@
 {% extends 'main/header.html' %}
-
 {% block content %}
 
 
 
-{% for a in farmers  %}
 
+  {% include "main/messages.html" %}
+<div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Farmers</h5>
+          <div class="col-lg-6"></div>
+          <div class="col-lg-6" style="float: right;">
+            <form action="{% url 'searched-farmer' %}" method="POST" >
+              {% csrf_token %}
+             <input type="text" class="form-control" name="user_search_input" id="input-1" placeholder="Search Here">
+            
+            </form>
+            </div>
+          <div class="col-lg-5"></div>
+          <div class="table-responsive">
+           <table class="table table-striped">
+              <thead>
+                <tr>
+              
+                  <th scope="col">First Name</th>
+                  <th scope="col">Last Name</th>               
+                  <th scope="col">Farm Size</th>
+                  <th scope="col">Date Registered</th>
+            
+<!--                
+                  <th>Action</th> -->
+                </tr>
+              </thead>
+              <tbody>
+                
+                {% if farmers %}
+                  
+         
+                  
+                {% for farmer in farmers  %}
 
+   
+                  
+             
+                <tr>
+              
+                 
+                  <td>{{ farmer.first_name }}</td>
+                  <td>{{ farmer.last_name }}</td>
+               
+                  <td>{{ farmer.email }}</td>
+                  <td>{{ farmer.profile.user_phone }}</td>
+                  
+                      <td>
+                        <!-- <div class="card-action">
+                          <div class="dropdown">
+                          <a href="javascript:void();" class="dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown">
+                           <i class="icon-options"></i>
+                          </a>
+                             <div class="dropdown-menu dropdown-menu-right">                        
+                            
+                              
+                            
+                                
+                           
+                                
+                       
+                              {% if user.is_superuser %}
+               
+                            <a class="dropdown-item" href="{% url 'update-farm' farmer.id ">Update</a>
+                            <a class="dropdown-item" href="javascript:void();">Delete</a>
+                       
+                              {% endif %}
+                    
+                          
+                       
+                            </div>
+                           </div>
+                        </div> -->
+                      </td>
+                    
 
-{% if a.profile.role == 1 %}
-    
-
-    
-    
-<li> <a href="{% url 'user-profile' a.id %}">pop</a> {{ a.last_name }}  </li>
-
-
-{% endif %}   
-{% endfor %}
-
-
-
+                </tr>
+            
+                {% endfor %}
+                {% else %}
+       
+                  <div class="col-lg-6">
+                    <div class="alert alert-warning" role="alert">
+                 <h6>No record found</h6>
+                    </div>
+                </div>
+            
+                {% endif %}
+              </tbody>
+            </table>
+            <nav aria-label="Page navigation example">
+              <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+            {% if is_paginated %}
+            
+                  {% if page_obj.has_previous %}
+                   <li class="page-item disabled"> <a class="btn btn-outline-secondary mb-4"  href="?page=1">First </a></li>
+                   <li class="page-item disabled"> <a class="btn btn-outline-secondary mb-4"  href="?page={{ page_obj.previous_page_number}}">Previous </a></li>
+                  {% endif %}
+            
+                  {%  for num in page_obj.paginator.page_range  %}
+            
+                    {% if page_obj.number == num %}
+            
+                    <li class="page-item disabled">  <a class="btn btn-outline-info mb-4"  href="?page={{ num }}">{{ num }} </a></li>
+            
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            
+                        <li class="page-item disabled"> <a class="btn btn-outline-info mb-4"  href="?page={{ num }}">{{ num }} </a></li>
+                     {% endif %}
+            
+                    {% endfor%}
+            
+              {% if page_obj.has_next %}
+                 <li class="page-item disabled">   <a class="btn btn-outline-info mb-4"  href="?page={{ page_obj.next_page_number }}">Next </a></li>
+                     <li class="page-item disabled">   <a class="btn btn-outline-info mb-4"  href="?page={{ page_obj.paginator.num_pages }}">Last </a></li>
+                  {% endif %}
+                  {% endif %}
+            
+            
+              
+              </ul>
+            </nav>
+            
+        </div>
+        </div>
+      </div>
+    </div>
+    </div>  
   
 {% endblock content %}
-

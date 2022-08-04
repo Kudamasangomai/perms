@@ -17,9 +17,9 @@
             <p>Enter Your Payment number</p>
             </h4>
             <br/>
-            <form  method="Post" action="">
+            <form  method="Post" action="{% url 'process-payment' %}">
              {% csrf_token %}
-             <input type="text" class="form-control" name="payingnumber" id="input-1" placeholder="Enter Phone number">
+             <input type="text" class="form-control" name="ecocashnumber" id="input-1" placeholder="Enter Phone number">
        
                                   
            

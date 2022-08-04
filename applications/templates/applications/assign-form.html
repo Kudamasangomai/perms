@@ -6,9 +6,10 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12 col-sm-6">
-            <h4>Assigning an Officer  to  {{ application.user.last_name }}'s Application with permit Number 
+            <br>
+            <h5>Assigning an Officer  to  {{ application.user.last_name }}'s Application with permit Number 
             {{ application.permit_number }}    
-            </h4>
+            </h5>
             <br/>
             <form  method="Post" action="">
              {% csrf_token %}
@@ -36,6 +37,6 @@
 <button type="submit" class="btn btn-success">Assign</button>
 </form>
 
-<button class="btn btn-primary"  data-dismiss="modal"><a href="{% url 'applications' %}">Cancel</a></button>
+<button class="btn btn-warning"  data-dismiss="modal"><a href="{% url 'applications' %}">Cancel</a></button>
 
 {% endblock content %}

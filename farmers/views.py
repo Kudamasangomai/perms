@@ -1,11 +1,12 @@
 from django.shortcuts import get_object_or_404, render,redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView,UpdateView
 from django.contrib import messages
 from multiprocessing import context
-from urllib import request
+from django.db.models import Q
 from users.models import *
 from farmers.models import *
 from main.forms import *
@@ -16,20 +17,28 @@ from .models import *
 class farmers(LoginRequiredMixin,ListView):
     model = User
     template_name = 'farmers/farmers.html'
-    context_object_name  = 'farmers'
+    #context_object_name  = 'farmers'
     paginate_by = 10
+
+    def get_context_data(self,**kwargs):
+       context = super(farmers, self).get_context_data(**kwargs)
+       context['farmers'] = User.objects.filter(is_staff = False)
+       return context
 
 
 class FarmlistView(ListView):
     model = farm
     template_name = 'farmers/farms-list.html' 
-    paginate_b = 10   
+    paginate_by = 10   
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        ctx['farms'] = farm.objects.filter(fuser = self.request.user)
+        if self.request.user.profile.role > 4:
+            ctx['farms'] = farm.objects.all()
+        else:
+            ctx['farms'] = farm.objects.filter(fuser = self.request.user)
         return ctx
-
+  
 
 #function to add User farm details
 def register_farm(request):
@@ -97,6 +106,40 @@ def edit_documents(request,**kwargs):
       
     return render(request,'farmers/edit_documents.html',data)
 
+#search function
+@login_required
+def search_farm(request):
+
+	if request.method == 'POST':
+		searchedq = request.POST.get('user_search_input')	
+			
+						
+		farms = farm.objects.filter(
+			Q(farm_name__contains = searchedq) |
+			Q(farm_district__contains = searchedq) |
+			Q(fuser__first_name__contains = searchedq) |
+			Q(fuser__last_name__contains = searchedq)
+			)
+		return render(request,'farmers/farms-list.html',{'farms':farms})
+	else:
+		return render(request,'farmers/farms-list.html')
+
+#search function
+@login_required
+def search_farmer(request):
+
+	if request.method == 'POST':
+		searchedq = request.POST.get('user_search_input')	
+			
+						
+		farmers = User.objects.filter(
+					Q(first_name__contains = searchedq)
+			)
+		return render(request,'farmers/farmers.html',{'farmers':farmers})
+	else:
+		return render(request,'farmers/farmers.html')
+
+ 
 
 
 

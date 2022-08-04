@@ -3,9 +3,15 @@
 
 {% block content %}
 
-<h4>Permit Details</h4>
-{% include "main/messages.html" %}
+<br>
+{% if object.product_name %}
+<h4>Updating Permit Details</h4>
 
+{% else %}
+<h4>Permit Details</h4>
+{% endif %}
+{% include "main/messages.html" %}
+<br>
 {{ form.errors }}
 <form action="" method="POST">
     {% csrf_token %}
@@ -53,7 +59,7 @@
 
 
 </div>
-<button type="submit" class="btn btn-info">Submit</button>
+<button type="submit" class="btn btn-success">Submit</button>
 </form>
 </div>
 {% endblock content %}

@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'mathfilters',
     'farmers',
-    'applications'
+    'applications',
+    'rest_framework',
     
     
 ]

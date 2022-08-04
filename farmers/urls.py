@@ -22,7 +22,9 @@ urlpatterns = [
    path('documents/',views.add_documents,name="add-documents"),
    path('edit_documents/<fuserd_id>',views.edit_documents,name="edit-documents"),
    path('download/', download, name="default"),
-   path('farmers',farmers.as_view(),name='farmers')
+   path('farmers',farmers.as_view(),name='farmers') ,  
+   path('searched_farm/',views.search_farm,name="searched-farm"),
+   path('searched_farmer/',views.search_farmer,name="searched-farmer")
 
   
  

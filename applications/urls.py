@@ -2,7 +2,7 @@ from unicodedata import name
 from django.urls import path
 from .models import *
 from . import views
-from .views import (ApplicationsliStView,ApplyPermitView,ApplicantView )
+from .views import (ApplicationsliStView,ApplyPermitView,ApplicantView,ApplicationUpdateView )
 
 
 
@@ -15,7 +15,9 @@ urlpatterns = [
    path('approve_permit/<int:pk>',views.approve_permit,name="approve-permit"),
    path('reject_permit/<int:pk>',views.reject_permit,name="reject-permit"),
    path('applicant_details/<int:pk>',ApplicantView.as_view(),name="applicant-details"),
-   path('payment/<int:pk>',views.payment,name="payment")
+   path('application_aupdate/<int:pk>',ApplicationUpdateView.as_view(),name='application-update'),
+   path('payment/<int:pk>',views.payment,name="payment"),
+   path('process_payment/',views.process_payment,name='process-payment'),
 
 
   

@@ -11,14 +11,32 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
+          
+          {% if user.profile.role > 3  %}
+          <h5 class="card-title">All Farms</h5>
+
+          {% else %}
           <h5 class="card-title">My Farms</h5>
+          {% endif %}
+            
+         
+          <div class="col-lg-6"></div>
+          <div class="col-lg-6" style="float: right;">
+            <form action="{% url 'searched-farm' %}" method="POST" >
+              {% csrf_token %}
+             <input type="text" class="form-control" name="user_search_input" id="input-1" placeholder="Search Here">
+             <!-- <button type="submit" class="btn btn-info">Submit</button></div> -->
+            </form>
+            </div>
+          <div class="col-lg-5"></div>
           <div class="table-responsive">
            <table class="table table-striped">
               <thead>
                 <tr>
               
                   <th scope="col">Farm Name</th>
-                  <th scope="col">Farm address</th>               
+                  <th scope="col">Farm address</th>  
+                  <th scope="col">Farm Owner</th>                
                   <th scope="col">Farm Size</th>
                   <th scope="col">Date Registered</th>
             
@@ -27,7 +45,13 @@
                 </tr>
               </thead>
               <tbody>
+                
+                {% if farms %}
+                  
+         
+                  
                 {% for farm in farms %}
+   
                   
              
                 <tr>
@@ -35,8 +59,9 @@
                  
                   <td>{{ farm.farm_name }}</td>
                   <td>{{ farm.farm_address }}</td>
-               
-                   <td>{{  farm.farm_size}} h</td>
+                  <td>{{  farm.fuser.last_name }} </td>
+                  <td>{{  farm.farm_size}} h</td>                  
+                
                    <td>{{  farm.date_created }} </td>
                   
                       <td>
@@ -45,16 +70,21 @@
                           <a href="javascript:void();" class="dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown">
                            <i class="icon-options"></i>
                           </a>
-                             <div class="dropdown-menu dropdown-menu-right">
+                             <div class="dropdown-menu dropdown-menu-right">                        
                             
+                              
                             
+                                
+                           
+                                
                        
-                      
+                              {% if farm.fuser == user or user.is_superuser %}
+               
                             <a class="dropdown-item" href="{% url 'update-farm' farm.id %}">Update</a>
                             <a class="dropdown-item" href="javascript:void();">Delete</a>
                        
-                              
-                 
+                              {% endif %}
+                    
                           
                        
                             </div>
@@ -66,6 +96,15 @@
                 </tr>
             
                 {% endfor %}
+                {% else %}
+       
+                  <div class="col-lg-6">
+                    <div class="alert alert-warning" role="alert">
+                 <h6>No record found</h6>
+                    </div>
+                </div>
+            
+                {% endif %}
               </tbody>
             </table>
             <nav aria-label="Page navigation example">

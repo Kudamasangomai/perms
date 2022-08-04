@@ -2,11 +2,11 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-{{ object }}
+
 {% if object.farm_name %}
-    <h4>Upate farm </h4>
+    <h4>Upate farm details </h4>
     {% else %}
-    <h4>Register Farm</h4>
+    <h4>Update Farm Details </h4>
     {% endif %}
     
 
@@ -14,7 +14,7 @@
 <form method="Post" enctype="multipart/form-data">
 {% csrf_token %}
 {{ registerfarmerform|crispy }}
-<button type="submit" class="btn btn-info">Submit</button>
+<button type="submit" class="btn btn-success">Submit</button>
 </form>
   </div>
 {% endblock content %}

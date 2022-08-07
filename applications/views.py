@@ -1,8 +1,10 @@
+from multiprocessing import context
 import time
 from .models import *
 from main.forms import *
 from paynow import Paynow
 from farmers.models import *
+from django.db.models import Q
 from django.contrib import messages
 from django.urls import reverse_lazy
 from datetime import datetime ,timedelta
@@ -12,6 +14,8 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import ListView ,UpdateView,DeleteView,DetailView,CreateView
+
+#all below import are for generating a pdf 
 import io
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
@@ -24,9 +28,8 @@ class ApplicationsliStView(LoginRequiredMixin, ListView):
     template_name = 'applications/applications-list.html'
 
     def get_context_data(self, **kwargs):
-        context = super(ApplicationsliStView,self).get_context_data(**kwargs)
-        
-        if self.request.user.is_superuser:
+        context = super(ApplicationsliStView,self).get_context_data(**kwargs)        
+        if self.request.user.is_superuser or self.request.user.profile.role == 2:
              context['applications'] = application.objects.all()
         else:
             context['user_has_farm'] = farm.objects.filter(fuser = self.request.user)
@@ -53,8 +56,6 @@ class ApplicationUpdateView(LoginRequiredMixin,SuccessMessageMixin,UpdateView):
     success_message = " Permit Succesfully Updated"  
     success_url = reverse_lazy('applications')
 
-
-
 class ApplicantView(LoginRequiredMixin,DetailView):
     model = application
     template_name = 'applications/applicant_verification.html'
@@ -64,11 +65,9 @@ class ApplicantView(LoginRequiredMixin,DetailView):
 def assign_officer(request,pk):
     app = application.objects.get(id=pk)
     appwoner = User.objects.get(id=app.user_id)
-    appofficerid = request.POST.get('officerid')
-    
+    appofficerid = request.POST.get('officerid')   
 
-    if request.user.is_staff == True:
-        
+    if request.user.is_staff == True:        
         if request.method == 'POST':
             user = User.objects.get(id=appofficerid )
             app.Approving_officer = user
@@ -79,8 +78,7 @@ def assign_officer(request,pk):
             # recipient_list = [appwoner.email,]
             # send_mail(subject,message,EMAIL_HOST_USER,recipient_list,fail_silently = False)
             messages.success(request,f' Application succefully Assigned')
-            return redirect('applications')
-        
+            return redirect('applications')        
         else:
             context={
                 'officer' : User.objects.all(),
@@ -94,11 +92,9 @@ def assign_officer(request,pk):
 @login_required
 def approve_permit(request,pk):
     app = application.objects.get(id=pk)
-    expirydate = datetime.today() + timedelta(days=365)
-    
+    expirydate = datetime.today() + timedelta(days=365)    
     if request.user.is_staff == True:
-        if request.method == 'POST':
-            
+        if request.method == 'POST':            
             app.status = 'Approved'
             app.StatusReason =  'Approved'
             app.Expiry_of_permit_date = expirydate
@@ -121,8 +117,7 @@ def approve_permit(request,pk):
 def reject_permit(request,pk):
     app = application.objects.get(id=pk)
     if request.user.is_staff == True:
-        if request.method == 'POST':
-            
+        if request.method == 'POST':            
             app.status = 'NotApproved'
             app.StatusReason =  request.POST.get('rejectreason')
             app.save()
@@ -133,8 +128,7 @@ def reject_permit(request,pk):
             messages.warning(request,f' Application succefully Rejected')
             return redirect('applications')
         else:
-                context={
-                
+                context={                
                 'application' : application.objects.get(id=pk)
             }       
         return render(request,'applications/reject-form.html',context)
@@ -210,7 +204,7 @@ def process_payment(request,pk):
                   
         retries = retries + 1
 
-
+@login_required
 def export_pdf(request,pk):
     buf = io.BytesIO()
     c = canvas.Canvas(buf,pagesize=letter,bottomup=0)
@@ -232,5 +226,35 @@ def export_pdf(request,pk):
     c.save()
     buf.seek(0)
     return FileResponse(buf, as_attachment=True, filename='books.pdf')
+@login_required
+def search_application(request):
+    if request.method == 'POST':
+        searchedinput = request.POST.get('user_search_input')
+        applicationinfo = application.objects.filter(Q(user = request.user),Q(permit_number__contains = searchedinput)|Q(product_name__contains = searchedinput) 
+        )
+        adminapplicationinfo = application.objects.filter(Q(permit_number__contains = searchedinput)|Q(product_name__contains = searchedinput) 
+        )
+
+        context={
+           'user_has_farm' : farm.objects.filter(fuser = request.user),
+           'applications':applicationinfo
+
+        }
+        admincontext ={
+             # 'user_has_farm' : farm.objects.filter(fuser = request.user),
+           'applications':adminapplicationinfo
+        }
+
+
+        if request.user.is_superuser or request.user.profile.role == 2:
+             return render(request,'applications/applications-list.html',admincontext)
+
+        return render(request,'applications/applications-list.html',context)
+    else:
+        return render(request,'applications/applications-list.html')
+    
+
+ 
+
 
 

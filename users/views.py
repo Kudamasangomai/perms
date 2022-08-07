@@ -41,8 +41,8 @@ def admin_userprofile_update(request,pk):
     userdata = User.objects.get(id=pk)
    
     if request.method == 'POST':
-        form = UserUpdateForm(request.POST ,instance = User.objects.get(id=pk))
-        profile_form = adminprofileupdateform(request.POST,request.FILES , instance = profile.objects.get(user= userdata.id))
+        form = adminprofileupdateform(request.POST ,instance = User.objects.get(id=pk))
+        profile_form = profileupdateform(request.POST,request.FILES , instance = profile.objects.get(user= userdata.id))
 
         if form.is_valid() and profile_form.is_valid():
             form.save()
@@ -50,8 +50,8 @@ def admin_userprofile_update(request,pk):
             messages.success(request,f'Profile has been updated')
             return redirect('users')		
     else:
-        form = UserUpdateForm(instance = User.objects.get(id=pk))
-        profile_form = adminprofileupdateform(instance = profile.objects.get(user = userdata.id))
+        form = adminprofileupdateform(instance = User.objects.get(id=pk))
+        profile_form = profileupdateform(instance = profile.objects.get(user = userdata.id))
 
         context = {
         'form':form,
@@ -68,7 +68,7 @@ def profile_edit(request,**kwargs):
 			form.save()
 			profile_form.save()
 			messages.success(request,f'Your profile has been updated')
-			return redirect('dashboard')
+			return redirect('user-profile')
 		
 
 	else:

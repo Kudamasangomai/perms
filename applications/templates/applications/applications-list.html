@@ -16,12 +16,12 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Applications</h5>
+          <h5 class="card-title">Applications </h5>
 
 
         
        <div class="card-action">
-        {% if user_has_farm %}
+        {% if user_has_farm or user.is_superuser or user.profile.role == 2 %}
         <div class="dropdown">
         <a href="javascript:void();" class="dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown">
          <i class="icon-options"></i>
@@ -29,15 +29,6 @@
            <div class="dropdown-menu dropdown-menu-right">
           
            <a class="dropdown-item" href="{% url 'apply-permit' %}">Apply For Permit</a>
-          
-     
- 
-         
-     
-            
-
-        
-     
           </div>
          </div>
          {% else %}
@@ -45,7 +36,14 @@
        {% endif %}
       </div>
  
-     
+      <div class="col-lg-6"></div>
+          <div class="col-lg-6" style="float: right;">
+            <form action="{% url 'search-application' %}" method="POST" >
+              {% csrf_token %}
+             <input type="text" class="form-control" name="user_search_input" id="input-1" placeholder="Search Here">
+          
+            </form>
+            </div>
        <br><div class="card-body">
           <div class="table-responsive">
          <table class="table table-striped">
@@ -66,6 +64,11 @@
                 </tr>
               </thead>
               <tbody>
+                
+                {% if applications %}
+                  
+            
+                  
                 {% for app in applications  %}
                   
              
@@ -90,13 +93,7 @@
                   <td>{{ app.date_created }}</td>
                
                 
-                      <td>
-                     
-                          
-                         
-                            
-                     
-                            
+                      <td>  
                           {% if app.status == 'Approved'  %}
                             
                        <a href="{% url 'payment' app.id %}">Procced to payment |</a>
@@ -128,16 +125,7 @@
                              {% else %}
                              
                              {% endif %}
-                             
-                           
-                              
-                             
-                           
-                            
-                            
                             {% if app.user == user %}
-
-                            
                             {% if app.status == 'NotApproved' %}
                               
                               {% else %}
@@ -148,21 +136,24 @@
                             {% endif %}
                             {% endif %}
                               
-                            {% endif %}
-                           
-                            
-                       
-                              
-               
-                          
-                     
-                        
+                            {% endif %}                        
                       </td>
-                    
 
                 </tr>
             
                 {% endfor %}
+                {% else %}
+       
+           
+                  <div class="alert alert-warning" role="alert">
+            <center>
+               <p>No record found</hp>
+               <p>return to <a href="{% url 'applications' %}">Applications</a></p>
+              </center>
+                  </div>
+           
+          
+              {% endif %}
               </tbody>
             </table>
             <nav aria-label="Page navigation example">

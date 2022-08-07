@@ -143,7 +143,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGIN_URL = 'login'
 
-SESSION_EXPIRE_SECONDS = 6000  # 300 seconds = 5 minutes
+SESSION_EXPIRE_SECONDS = 60  # 300 seconds = 5 minutes
 SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
 
 

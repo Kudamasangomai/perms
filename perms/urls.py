@@ -28,6 +28,7 @@ urlpatterns = [
     path('',include('main.urls')), 
     path('farmers/',include('farmers.urls')), 
     path('applications/',include('applications.urls')), 
+    path('permsapi/',include('permsapi.urls')), 
  
 ]
 

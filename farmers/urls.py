@@ -24,8 +24,9 @@ urlpatterns = [
    path('download/', download, name="default"),
    path('farmers',farmers.as_view(),name='farmers') ,  
    path('searched_farm/',views.search_farm,name="searched-farm"),
-   path('searched_farmer/',views.search_farmer,name="searched-farmer")
-
+   path('searched_farmer/',views.search_farmer,name="searched-farmer"),
+   path('export_farmers_pdf/',views.export_farmers_pdf,name="export-farmers-pdf"),
+   path('export_farmers_csv/',views.export_farmers_csv,name="export-farmers-csv")
   
  
   

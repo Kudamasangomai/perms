@@ -4,6 +4,14 @@
 {% block content %}
 <script src="{% static 'assets/plugins/Chart.js/Chart.min.js' %}"></script>
 
+{% if user.profile.role == 2  %}
+ <a href="{% url 'applications' %}">Applications</a>
+  {% else %}
+
+  
+{% if user.profile.role > 3 %}
+  
+
 <div class="card mt-3">
     <div class="card-content">
         <div class="row row-group m-0">
@@ -118,12 +126,102 @@
       </div>
   </div>
 </div>
+{% else %}
 
+
+<div class="card mt-3">
+  <div class="card-content">
+      <div class="row row-group m-0">
+          <div class="col-12 col-lg-6 col-xl-3 border-light">
+              <div class="card-body">
+                <h5 class="text-white mb-0">{{ user_permits }}<span class="float-right"><i class="fa fa-file"></i></span></h5>
+                  <div class="progress my-3" style="height:3px;">
+                     <div class="progress-bar" style="width:100%"></div>
+                  </div>
+                <p class="mb-0 text-white small-font">Total Permits <span class="float-right">
+                  
+                </span></p>
+              </div>
+          </div>
+          <div class="col-12 col-lg-6 col-xl-3 border-light">
+            <div class="card-body">
+              <h5 class="text-white mb-0">{{ user_processing_permits }}<span class="float-right"><i class="fa fa-file"></i></span></h5>
+                <div class="progress my-3" style="height:3px;">
+                   <div class="progress-bar" style="width:100%"></div>
+                </div>
+              <p class="mb-0 text-white small-font">Permits Being Proccessed <span class="float-right">
+                 
+              </span></p>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 col-xl-3 border-light">
+          <div class="card-body">
+            <h5 class="text-white mb-0">{{ user_Approved_permits }}<span class="float-right"><i class="fa fa-file"></i></span></h5>
+              <div class="progress my-3" style="height:3px;">
+                 <div class="progress-bar" style="width:100%"></div>
+              </div>
+            <p class="mb-0 text-white small-font">Approved Permits <span class="float-right">
+     
+            </span></p>
+          </div>
+      </div>
+      <div class="col-12 col-lg-6 col-xl-3 border-light">
+        <div class="card-body">
+          <h5 class="text-white mb-0">{{ user_Notapproved_permits }}<span class="float-right">
+            
+          </span></h5>
+            <div class="progress my-3" style="height:3px;">
+               <div class="progress-bar" style="width:100%"></div>
+            </div>
+          <p class="mb-0 text-white small-font">Permits not Approved <span class="float-right">
+      </span></p>
+        </div>
+    </div>
+    
+      </div>
+  </div>
+  
+</div>
+<div class="card mt-3">
+  <div class="card-content">
+      <div class="row row-group m-0">
+          <div class="col-12 col-lg-6 col-xl-3 border-light">
+              <div class="card-body">
+                <h5 class="text-white mb-0">{{ user_unpaid_permits }}<span class="float-right"><i class="fa fa-money"></i></span></h5>
+                  <div class="progress my-3" style="height:2px;">
+                     <div class="progress-bar" style="width:100%"></div>
+                  </div>
+                <p class="mb-0 text-white small-font">Approved and Unpaid  Permits<span class="float-right">
+                  
+                </span></p>
+              </div>
+          </div>
+       
+          <div class="col-12 col-lg-6 col-xl-3 border-light">
+            <div class="card-body">
+              <h5 class="text-white mb-0">{{ total_farms }}<span class="float-right"><i class="fa fa-tree"></i></span></h5>
+                <div class="progress my-3" style="height:2px;">
+                   <div class="progress-bar" style="width:100%"></div>
+                </div>
+              <p class="mb-0 text-white small-font">Total Farms<span class="float-right">
+         
+              </span></p>
+            </div>
+        </div>
+     
+    
+      </div>
+  </div>
+  
+</div>
+
+{% endif %}
+{% endif %}
 <script>
  
 
 new Chart("myChart", {
-  type: "line",
+  type: "bar",
   data: {
     labels: [
                 {% for b in d %}

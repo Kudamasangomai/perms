@@ -29,7 +29,7 @@ class UserUpdateForm(forms.ModelForm):
 		}))
 	class Meta:
 		model = User
-		fields = ['email','username','first_name','last_name','is_superuser','is_staff']
+		fields = ['email','username','first_name','last_name']
 
 class profileupdateform(forms.ModelForm):
     class Meta:
@@ -39,9 +39,14 @@ class profileupdateform(forms.ModelForm):
 
 
 class adminprofileupdateform(forms.ModelForm):
-     class Meta:
-            model = profile
-            fields = '__all__'
+    username = forms.CharField(required=True,widget=forms.TextInput(attrs={
+
+		"readonly":'readonly'
+		}))
+    class Meta:
+        model = User
+        fields = ['email','username','first_name','last_name','is_staff','is_active']
+   
 
 class RegisterFarmForm(forms.ModelForm):
     class Meta:
@@ -66,5 +71,5 @@ class PermitApplicationForm(forms.ModelForm):
     class Meta:
         model = application
         fields ='__all__'
-        exclude =['user','status','date_created','Approving_officer','StatusReason','permit_number','date_approved','Expiry_of_permit_date']
+        exclude =['user','status','date_created','Approving_officer','StatusReason','permit_number','date_approved','Expiry_of_permit_date','permit_paid']
 

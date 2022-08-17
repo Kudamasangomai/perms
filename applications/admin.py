@@ -5,5 +5,5 @@ from .models import *
 # admin.site.register(application)
 
 class applicationadmin(admin.ModelAdmin):
-    list_display = ('user','permit_number','date_created','status','date_approved')
+    list_display = ('user','permit_number','date_created','status','permit_paid','date_approved')
 admin.site.register(application,applicationadmin)

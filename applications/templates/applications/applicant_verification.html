@@ -87,7 +87,14 @@
                                 <td>Purpose product</td><td> {{ object.Purpose }} </td>
                              </tr>
                              <tr>
-                              <td>Permit Status</td><td> {{ object.status }} </td>
+                              <td>Permit Status</td><td>
+                                {% if object.status == 'NotApproved' %}
+
+                                Rejected because : {{ object.StatusReason }}
+                                  {% else %}
+                                  {{ object.status }}
+                              {% endif %}
+                              </td>
                            
                            </tr>
                            <tr>
@@ -101,7 +108,7 @@
                       
                               {% else %}
                                 
-                                {% if object.StatusReason == 'Approved' %}
+                                {% if object.status == 'Approved' %}
                                 <td>Aprroved</td><td> Approved </td>
                                 {% else %}
 
@@ -118,11 +125,18 @@
                               <td>
                                   Action
                               </td>
-                              <td><button type="submit" class="btn btn-success">
+                              <td>
+                                {% if object.status == 'Approved' %}
+
+                                <button type="submit" class="btn btn-success">
                                   <a  href="{% url 'export-pdf' object.id %}">
                                       Download pdf
                                   </a>
                                   </button> 
+                                  {% else %}
+                              {{  object.Status  }}
+
+                                  {% endif %}
                                   </td>
                                   </tr>
                              {% else %}

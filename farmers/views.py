@@ -148,6 +148,8 @@ def search_farmer(request):
 		return render(request,'farmers/farmers.html',{'farmers':farmers})
 	else:
 		return render(request,'farmers/farmers.html')
+
+
 @login_required
 def export_farmers_pdf(request):
     buf = io.BytesIO()
@@ -157,9 +159,10 @@ def export_farmers_pdf(request):
 	
     textob.setFont("Helvetica",14)
     objbooks = User.objects.filter(is_staff = False)
-    row = []
+    row = (['Name','Last Name','email'])
     for objb in objbooks:
-        row.append(objb.first_name)
+        
+        row.append( objb.first_name)
         row.append(objb.last_name)
         row.append(objb.email)
 
@@ -170,6 +173,9 @@ def export_farmers_pdf(request):
     c.save()
     buf.seek(0)
     return FileResponse(buf, as_attachment=True, filename='Farmerslist.pdf')
+
+
+    
 @login_required
 def export_farmers_csv(request):
     

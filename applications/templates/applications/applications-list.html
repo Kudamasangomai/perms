@@ -94,32 +94,29 @@
                
                 
                       <td>  
+
+                        
+
                           {% if app.status == 'Approved'  %}
                             
                        <a href="{% url 'payment' app.id %}">Procced to payment |</a>
-                       <a href="{% url 'applicant-details' app.id %}">
-                        View |
-                        </a>
+                       <a href="{% url 'applicant-details' app.id %}">View | </a>
                             
                         {% else %}
                             
                              
-                             {% if user.is_superuser %}                           
+                        {% if user.is_superuser %}                           
                              
                              {% if app.status == "waiting" %}
-                             <a  href="{% url 'assign-officer' app.id %}">
-                   
-                            Assign |
-                            </a>
+                             <a  href="{% url 'assign-officer' app.id %}">Assign |</a>
+                             <a href="{% url 'applicant-details' app.id %}">View | </a>
 
                              {% else %}
                         
                               
-                             <a  href="{% url 'approve-permit' app.id %}">
-                              Approve |
-                            </a>
-                            <a  href="{% url 'reject-permit' app.id %}">
-                              Rejected |</a>
+                             <a href="{% url 'approve-permit' app.id %}"> Approve | </a>
+                            <a  href="{% url 'reject-permit' app.id %}"> Rejected |</a>
+                            
                              {% endif %}
                              
                              {% else %}
@@ -127,7 +124,7 @@
                              {% endif %}
                             {% if app.user == user %}
                             {% if app.status == 'NotApproved' %}
-                              
+                            <a href="{% url 'applicant-details' app.id %}">View | </a>
                               {% else %}
                               
 

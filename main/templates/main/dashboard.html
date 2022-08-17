@@ -243,15 +243,9 @@ new Chart("myChart", {
             
               
 ],
-backgroundColor: [
-              'rgba(255, 206, 86, 0.2)'            
-              
-            ],
-            borderColor: [
-               
-                'rgba(10, 128,10, 1)'
-            ],
-            borderWidth: 5
+            backgroundColor: ['rgba(255, 206, 86, 0.2)'  ],
+            borderColor: [  'rgba(10, 128,10, 1)'   ],
+            borderWidth: 2
      
     },
 {
@@ -264,11 +258,12 @@ backgroundColor: [
               {% endfor %}
 
 ],
-backgroundColor: [ 'rgba(230, 192, 192, 0.2)',   ],
-borderColor: ['rgba(0, 170, 255, 1)' ],
- borderWidth: 2
+    backgroundColor: [ 'rgba(230, 192, 192, 0.2)',   ],
+    borderColor: ['rgba(0, 170, 255, 1)' ],
+    borderWidth: 2
 
-    },{
+    },
+{
       label:'Rejected/month',
       data: [
           {% for b in rejected %}
@@ -278,16 +273,11 @@ borderColor: ['rgba(0, 170, 255, 1)' ],
               {% endfor %}
         
 ],
-backgroundColor: [
-          'rgba(255, 255, 255, 0.2)',
-            
-              
-            ],
-borderColor: [
-               
+    backgroundColor: [    'rgba(255, 255, 255, 0.2)',  ],
+    borderColor: [             
                'rgba(255, 0, 0, 1)'
            ],
-                borderWidth: 5
+                borderWidth: 3
     }
 
 
@@ -295,7 +285,7 @@ borderColor: [
 ]
   },
  options: {
-  //   legend: {display: false},
+
   scales: {
     yAxes: [{
 					ticks: {

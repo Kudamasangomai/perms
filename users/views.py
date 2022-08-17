@@ -1,6 +1,6 @@
 from django.views.generic import(ListView,DetailView,FormView,UpdateView ,DeleteView,CreateView)
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.shortcuts import get_object_or_404, render,redirect
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
@@ -24,9 +24,12 @@ class Userslistview(LoginRequiredMixin, ListView):
     model = User
     template_name = 'users/users.html'
     context_object_name = 'users'
-    paginate_by = 10
+    paginate_by = 5
 
-class UserProfileView(DetailView):
+    def get_queryset(self,**kwargs):
+        return User.objects.filter(is_staff = True)
+
+class UserProfileView(LoginRequiredMixin, DetailView):
     model = User
     template_name = 'users/user_profile.html'
 
@@ -35,6 +38,8 @@ class UserProfileView(DetailView):
        # context['userdetails'] = User.objects.filter(id = self.request.user.id)
         context['userdetails'] = documents.objects.filter(fuserd =self.request.user)
         return context
+    
+   
 
 
 def admin_userprofile_update(request,pk):

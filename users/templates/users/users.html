@@ -8,14 +8,14 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">All Users</h5>
+          <h5 class="card-title">All Staff Members </h5>
           <div class="table-responsive">
            <table class="table table-striped">
               <thead>
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">FirstName</th>
-                  <th scope="col">LastName</th>
+                  <th scope="col">Names</th>
+             
                   <th scope="col">Username</th>
                   <th scope="col">Email</th>
             
@@ -36,13 +36,25 @@
                 </div>
                   </th>
                  
-                  <td>{{  usero.first_name}}</td>
-                  <td>{{  usero.last_name}}</td>
+                  <td>{{  usero.first_name}} {{  usero.last_name}}</td>
+                  
                   <th >{{  usero.username}}</th>
                    <td>{{  usero.email}}</td>
                       <td>{{  usero.is_superuser}}</td>
                       <td>{{  usero.is_staff}}</td>
-                      <td>{{  usero.profile.role }}</td>
+                      <td>
+                        {% if     usero.profile.role == 9   %}
+                          Admin
+                        {% elif  usero.profile.role == 5  %}
+                          Clearence Office
+                        {% elif  usero.profile.role == 2  %}
+                          Border Agents
+                        {% else %}
+
+                        {% endif %}
+                     
+                      
+                      </td>
                       <td>
                         <div class="card-action">
                           <div class="dropdown">
@@ -51,7 +63,7 @@
                           </a>
                           {% if user.is_superuser %}
                              <div class="dropdown-menu dropdown-menu-right">
-                             <a class="dropdown-item" href="{% url 'user-profile' usero.id %}">View</a>
+                             <!-- <a class="dropdown-item" href=" url 'user-profile' usero.id "></a> -->
                             
                            
                          

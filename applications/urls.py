@@ -26,8 +26,8 @@ urlpatterns = [
 
 
    path('export_pdf/<int:pk>',views.export_pdf,name="export-pdf"),
-  
- 
+   path('export_applications_csv/',views.export_application_csv,name="export-applications-csv")
+
   
 ]
 

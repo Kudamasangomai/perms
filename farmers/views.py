@@ -1,11 +1,9 @@
 from django.shortcuts import get_object_or_404, render,redirect
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView,UpdateView
 from django.contrib import messages
-from multiprocessing import context
 from django.db.models import Q ,Count
 from users.models import *
 from farmers.models import *

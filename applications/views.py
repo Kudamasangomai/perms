@@ -1,5 +1,8 @@
+from http.client import HTTPResponse
 from multiprocessing import context
+import csv
 import time
+from django.http import HttpResponse
 from .models import *
 from main.forms import *
 from paynow import Paynow
@@ -254,7 +257,24 @@ def search_application(request):
         return render(request,'applications/applications-list.html')
     
 
+@login_required
+def export_application_csv(request):
+    
+	response = HttpResponse(content_type='text/csv')
+	response['Content-Disposition']=  'attachment; filename=Applications.csv'
+	writer =csv.writer(response)
+	writer.writerow(['Permit Number','Permit Type','Product ','Status','Date Created',])
+	apps = application.objects.all()
+	for objb in apps:
+		writer.writerow([
+            objb.permit_number,
+            objb.permit_type  ,    
+            objb.product_name,   
+            objb.status,
+            objb.date_created,    
+       
  
-
-
-
+           
+            
+            ]),
+	return response 

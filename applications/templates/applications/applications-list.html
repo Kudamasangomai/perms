@@ -18,7 +18,7 @@
         <div class="card-body">
           <h5 class="card-title">Applications </h5>
 
-
+        
         
        <div class="card-action">
         {% if user_has_farm or user.is_superuser or user.profile.role == 2 %}
@@ -29,13 +29,16 @@
            <div class="dropdown-menu dropdown-menu-right">
           
            <a class="dropdown-item" href="{% url 'apply-permit' %}">Apply For Permit</a>
+
+           <a class="dropdown-item" href="{% url 'export-applications-csv' %}">Download Applications</a>
+           <a class="dropdown-item" href="{% url 'export-farmers-csv' %}">Download CSV</a>
           </div>
          </div>
          {% else %}
         Register you farm here <a href="{% url 'register-farm' %}"></a> to be able to appy for a permit
        {% endif %}
       </div>
- 
+   
       <div class="col-lg-6"></div>
           <div class="col-lg-6" style="float: right;">
             <form action="{% url 'search-application' %}" method="POST" >
